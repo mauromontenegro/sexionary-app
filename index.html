@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sexionary</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Sexionary</h1>
+    <button id="startBtn">Iniciar partida</button>
+    <section id="cardSelector" class="hidden">
+      <h2>Seleccioná una palabra</h2>
+      <div id="cardOptions"></div>
+    </section>
+    <section id="timerSection" class="hidden">
+      <p id="selectedCard"></p>
+      <button id="startTimer">Iniciar turno</button>
+      <button id="stopTimer">Detener</button>
+      <p id="countdown"></p>
+    </section>
+    <div id="turnEnd" class="hidden">¡Turno finalizado!</div>
+  </main>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
