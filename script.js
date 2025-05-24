@@ -122,3 +122,13 @@ function updateCountdownDisplay() {
   countdown.innerText = `${minutes}:${seconds}`;
 }
 
+const fontSizeSelector = document.getElementById("fontSizeSelector");
+
+fontSizeSelector.addEventListener("change", (e) => {
+  const value = e.target.value;
+  document.documentElement.classList.remove("font-normal", "font-grande", "font-muy-grande");
+  document.documentElement.classList.add(`font-${value}`);
+});
+
+// Inicializar con tamaño normal
+document.documentElement.classList.add("font-normal");

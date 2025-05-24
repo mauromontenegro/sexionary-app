@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sexionary</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <main class="container">
     <h1>Sexionary</h1>
@@ -22,7 +25,17 @@
     </section>
     <div id="turnEnd" class="hidden">¡Turno finalizado!</div>
   </main>
+  <footer>
+    <label for="fontSizeSelector">Tamaño de fuente:</label>
+    <select id="fontSizeSelector">
+      <option value="normal">Normal</option>
+      <option value="grande">Grande</option>
+      <option value="muy-grande">Muy grande</option>
+    </select>
+  </footer>
+
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
+
 </html>
