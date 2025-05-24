@@ -121,3 +121,7 @@ footer select {
   background: #1e1e1e;
   color: white;
 }
+
+.countdown-urgente {
+  color: #ff5252 !important; /* rojo fuerte */
+}

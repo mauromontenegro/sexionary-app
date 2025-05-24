@@ -7,6 +7,7 @@ const startTimerBtn = document.getElementById("startTimer");
 const stopTimerBtn = document.getElementById("stopTimer");
 const countdown = document.getElementById("countdown");
 const turnEnd = document.getElementById("turnEnd");
+const beepSound = new Audio("beep.wav");
 
 let partidaIniciada = false;
 
@@ -89,6 +90,10 @@ startTimerBtn.addEventListener("click", () => {
   timer = setInterval(() => {
     timeLeft--;
     updateCountdownDisplay();
+    if (timeLeft <= 10 && timeLeft > 0) {
+      beepSound.currentTime = 0;
+      beepSound.play();
+    }
     if (timeLeft <= 0) {
       endTurn();
     }
@@ -120,7 +125,15 @@ function updateCountdownDisplay() {
   const minutes = Math.floor(timeLeft / 60).toString().padStart(2, "0");
   const seconds = (timeLeft % 60).toString().padStart(2, "0");
   countdown.innerText = `${minutes}:${seconds}`;
+
+  // Cambiar a rojo si quedan 10 segundos o menos
+  if (timeLeft <= 10) {
+    countdown.classList.add("countdown-urgente");
+  } else {
+    countdown.classList.remove("countdown-urgente");
+  }
 }
+
 
 const fontSizeSelector = document.getElementById("fontSizeSelector");
 
