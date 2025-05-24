@@ -108,9 +108,10 @@ function endTurn() {
   turnEnd.classList.remove("hidden");
   setTimeout(() => {
     turnEnd.classList.add("hidden");
-    cardSelector.classList.remove("hidden");
-    showRandomCards();
+    startBtn.innerText = "Continuar";
+    startBtn.classList.remove("hidden");
   }, 3000);
+
   timeLeft = 60;
   updateCountdownDisplay();
 }
