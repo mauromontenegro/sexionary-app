@@ -77,7 +77,7 @@ button:hover {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 #turnEnd {
@@ -147,3 +147,67 @@ footer select {
   color: white;
   border-color: #888;
 }
+
+#historyBtn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+  color: white;
+  text-align: left;
+  position: relative;
+}
+
+#closeModal {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+#historyList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#historyList button {
+  width: 95%;
+  max-width: 400px;
+  text-align: left;
+  padding: 12px 16px;
+  background-color: #1e1e1e;
+  color: white;
+  border: 1px solid #333;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+

@@ -36,9 +36,7 @@ const categoryNames = {
   naranja: "De todo un poco"
 };
 
-let usedCards = {
-  verde: [], rojo: [], amarillo: [], azul: [], naranja: []
-};
+let usedCards = [];
 
 const savedCards = localStorage.getItem("sexionary_usedCards");
 const hasSavedGame = savedCards !== null;
@@ -52,9 +50,7 @@ if (hasSavedGame) {
   nuevoBtn.innerText = "Iniciar partida nueva";
   nuevoBtn.onclick = () => {
     localStorage.removeItem("sexionary_usedCards");
-    usedCards = {
-      verde: [], rojo: [], amarillo: [], azul: [], naranja: []
-    };
+    usedCards = [];
     partidaIniciada = true;
     btnContainer.remove();
     cardSelector.classList.remove("hidden");
@@ -64,7 +60,10 @@ if (hasSavedGame) {
   const continuarBtn = document.createElement("button");
   continuarBtn.innerText = "Continuar partida";
   continuarBtn.onclick = () => {
-    usedCards = JSON.parse(savedCards);
+    usedCards = Array.isArray(JSON.parse(savedCards)) ? JSON.parse(savedCards) : [];
+    if (usedCards.length === 0) {
+      historyBtn.classList.add("hidden");
+    }
     partidaIniciada = true;
     btnContainer.remove();
     cardSelector.classList.remove("hidden");
@@ -118,7 +117,8 @@ continueBtn.addEventListener("click", () => {
 function showRandomCards() {
   cardOptions.innerHTML = "";
   for (let [color, list] of Object.entries(cards)) {
-    const remaining = list.filter(card => !usedCards[color].includes(card));
+    const playedWords = usedCards.filter(c => c.color === color).map(c => c.word);
+    const remaining = list.filter(card => !playedWords.includes(card));
     if (remaining.length === 0) continue;
     const random = remaining[Math.floor(Math.random() * remaining.length)];
     const btn = document.createElement("button");
@@ -134,7 +134,7 @@ function showRandomCards() {
 function selectCard(color, word) {
   palabraActual = word;
   categoriaActual = categoryNames[color];
-  usedCards[color].push(word);
+  usedCards.unshift({ word, color });
   localStorage.setItem("sexionary_usedCards", JSON.stringify(usedCards));
 
   const categoria = categoryNames[color];
@@ -287,3 +287,34 @@ fontSizeSelector.addEventListener("change", (e) => {
   document.documentElement.classList.add(`font-${value}`);
 });
 document.documentElement.classList.add("font-normal");
+
+const historyBtn = document.getElementById("historyBtn");
+const historyModal = document.getElementById("historyModal");
+const historyList = document.getElementById("historyList");
+const closeModal = document.getElementById("closeModal");
+
+historyBtn.addEventListener("click", () => {
+  historyList.innerHTML = "";
+
+  if (usedCards.length === 0) {
+    historyList.innerHTML = "<p>No hay palabras jugadas aún.</p>";
+  } else {
+    usedCards.forEach(({ word, color }) => {
+      const div = document.createElement("button");
+      div.innerHTML = `
+        <div>
+          <small style="display:block; margin-bottom: 6px; color: gray; font-size: 0.85em;">${categoryNames[color]}</small>
+          <span style="color:${categoryColors[color]}; font-size: 1.2em;">●</span> ${word}
+        </div>
+      `;
+      historyList.appendChild(div);
+    });
+  }
+
+  historyModal.classList.remove("hidden");
+});
+
+
+closeModal.addEventListener("click", () => {
+  historyModal.classList.add("hidden");
+});
