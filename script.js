@@ -25,11 +25,11 @@ const categoryColors = {
   rojo: "#F44336",
   amarillo: "#FFC107",
   azul: "#2196F3",
-  naranja: "#FF9800"
+  naranja: "#FF8C00"
 };
 
 const categoryNames = {
-  verde: "Lugares, objetos y partes del cuerpo",
+  verde: "Partes del cuerpo, objetos y lugares",
   rojo: "Personas, personajes y personalidades",
   amarillo: "Situación difícil",
   azul: "Verbos, actos y acciones",
@@ -39,6 +39,46 @@ const categoryNames = {
 let usedCards = {
   verde: [], rojo: [], amarillo: [], azul: [], naranja: []
 };
+
+const savedCards = localStorage.getItem("sexionary_usedCards");
+const hasSavedGame = savedCards !== null;
+
+const btnContainer = document.createElement("div");
+btnContainer.style.marginBottom = "20px";
+
+if (hasSavedGame) {
+  startBtn.classList.add("hidden");
+  const nuevoBtn = document.createElement("button");
+  nuevoBtn.innerText = "Iniciar partida nueva";
+  nuevoBtn.onclick = () => {
+    localStorage.removeItem("sexionary_usedCards");
+    usedCards = {
+      verde: [], rojo: [], amarillo: [], azul: [], naranja: []
+    };
+    partidaIniciada = true;
+    btnContainer.remove();
+    cardSelector.classList.remove("hidden");
+    showRandomCards();
+  };
+
+  const continuarBtn = document.createElement("button");
+  continuarBtn.innerText = "Continuar partida";
+  continuarBtn.onclick = () => {
+    usedCards = JSON.parse(savedCards);
+    partidaIniciada = true;
+    btnContainer.remove();
+    cardSelector.classList.remove("hidden");
+    showRandomCards();
+  };
+
+  btnContainer.appendChild(nuevoBtn);
+  btnContainer.appendChild(continuarBtn);
+
+  document.querySelector(".container").insertBefore(btnContainer, cardSelector);
+} else {
+  // Mostrar botón “Iniciar partida” si no hay partida guardada
+  startBtn.classList.remove("hidden");
+}
 
 // Botón INICIAR partida
 startBtn.addEventListener("click", () => {
@@ -95,6 +135,7 @@ function selectCard(color, word) {
   palabraActual = word;
   categoriaActual = categoryNames[color];
   usedCards[color].push(word);
+  localStorage.setItem("sexionary_usedCards", JSON.stringify(usedCards));
 
   const categoria = categoryNames[color];
   const colorHex = categoryColors[color];
