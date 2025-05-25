@@ -13,12 +13,15 @@
   <main class="container">
     <h1>Sexionary</h1>
     <button id="startBtn">Iniciar partida</button>
+    <button id="resetBtn" class="hidden">Reiniciar partida</button>
+    <button id="continueBtn" class="hidden">Continuar</button>
+
     <section id="cardSelector" class="hidden">
       <h2>Seleccioná una palabra</h2>
       <div id="cardOptions"></div>
     </section>
     <section id="timerSection" class="hidden">
-      <p id="selectedCard"></p>
+      <div id="selectedCard"></div>
       <button id="startTimer">Iniciar turno</button>
       <button id="stopTimer">Detener</button>
       <p id="countdown"></p>
