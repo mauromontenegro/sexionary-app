@@ -83,7 +83,6 @@ button:hover {
 #turnEnd {
   font-size: 1.5em;
   color: var(--color-accent);
-  animation: blink 1s infinite;
   margin-top: 20px;
 }
 

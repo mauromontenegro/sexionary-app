@@ -17,6 +17,8 @@ let partidaIniciada = false;
 let timer;
 let preTimer;
 let timeLeft = 60;
+let palabraActual = "";
+let categoriaActual = "";
 
 const categoryColors = {
   verde: "#4CAF50",
@@ -90,6 +92,8 @@ function showRandomCards() {
 }
 
 function selectCard(color, word) {
+  palabraActual = word;
+  categoriaActual = categoryNames[color];
   usedCards[color].push(word);
 
   const categoria = categoryNames[color];
@@ -112,6 +116,7 @@ function selectCard(color, word) {
 
   cardSelector.classList.add("hidden");
   timerSection.classList.remove("hidden");
+  resetBtn.classList.add("hidden");
 
   // Mostrar botón de iniciar turno
   startTimerBtn.classList.remove("hidden");
@@ -181,6 +186,15 @@ function endTurn() {
   clearInterval(timer);
   timerSection.classList.add("hidden");
   turnEnd.classList.remove("hidden");
+  turnEnd.innerHTML = `
+  <div style="margin-top: 20px;">
+    <p style="font-size: 1.4em; color: var(--color-accent);">¡Turno finalizado!</p>
+    <div style="margin-top: 10px;">
+      <small style="color: gray;">${categoriaActual}</small><br>
+      <strong style="font-size: 1.2em;">${palabraActual}</strong>
+    </div>
+  </div>
+`;
 
   resetBtn.classList.add("hidden");
   continueBtn.classList.remove("hidden");
