@@ -1,0 +1,102 @@
+
+SEXIONARY – DOCUMENTACIÓN FUNCIONAL Y TÉCNICA
+
+¿Qué es?
+Sexionary es una aplicación web responsiva tipo Pictionary para adultos, donde los jugadores deben adivinar palabras o frases relacionadas con sexualidad, cultura pop, humor, situaciones incómodas y más.
+
+Está desarrollada con:
+- HTML
+- CSS
+- JavaScript
+- Sin frameworks ni backend
+- Funciona 100% en el navegador
+
+FUNCIONALIDADES PRINCIPALES
+
+Inicio del juego
+- Al cargar la app:
+  - Si hay progreso guardado en localStorage, se muestran dos botones:
+    - “Iniciar partida nueva”
+    - “Continuar partida”
+  - Si no hay progreso, se muestra solo el botón:
+    - “Iniciar partida”
+
+Selección de tarjetas
+- Al iniciar la partida se muestran 5 tarjetas aleatorias (una por categoría)
+- Cada tarjeta incluye:
+  - Un círculo con el color de la categoría
+  - El nombre de la categoría
+  - La palabra o frase a adivinar
+  - El contador de cantidad de palabras
+- Al seleccionar una tarjeta:
+  - Se oculta la selección
+  - Aparece la palabra seleccionada y botones para iniciar o detener turno
+
+Temporizador del turno
+- Al hacer clic en “Iniciar turno”:
+  1. Se ejecuta una cuenta regresiva de 5 segundos (en verde)
+     - Suena un tic cada segundo
+     - Suena un tic largo al llegar a cero
+  2. Luego se inicia el turno de 60 segundos
+     - Cuenta regresiva en formato mm:ss
+     - Se torna roja al quedar ≤10 segundos
+     - Suena un tic por segundo al final
+     - Al llegar a cero, suena un tic largo y se finaliza el turno
+
+Mostrar/Ocultar palabra
+- Al iniciar el turno:
+  - La palabra se ofusca automáticamente con un filtro blur
+  - Aparece un botón “Mostrar”
+  - El botón permite alternar entre mostrar y ocultar la palabra
+  - Al finalizar el turno, el botón desaparece
+
+Final del turno
+- Se muestra:
+  - Un mensaje “¡Turno finalizado!”
+  - La palabra jugada
+  - La categoría a la que pertenece
+- Aparece el botón “Continuar” para volver a mostrar nuevas tarjetas
+
+Evitar repeticiones
+- Cada palabra jugada se guarda en localStorage y se descarta del mazo
+- El historial se mantiene incluso si se recarga la página
+- Al reiniciar una partida nueva, el progreso anterior se borra
+
+Ver historial de palabras jugadas
+- Hay un botón 📜 en la esquina superior derecha
+- Al hacer clic:
+  - Se abre un modal con las palabras ya jugadas
+  - Se muestran:
+    - El nombre de la categoría
+    - El color de la categoría
+    - La palabra
+  - Están ordenadas de la más reciente a la más antigua
+- El modal es responsive y puede cerrarse con una ❌
+
+Configuración de accesibilidad
+- En el footer se puede elegir el tamaño de fuente:
+  - Normal
+  - Grande
+  - Muy grande
+- Afecta todos los elementos de texto de la app
+
+ESTRUCTURA TÉCNICA
+
+Archivos principales:
+- index.html: estructura básica y contenedores
+- style.css: estilos generales + diseño responsivo
+- script.js: lógica de juego, interacción, estado y control del DOM
+- data.js (opcional): contiene las palabras por categoría
+- favicon.ico: ícono de la pestaña
+
+Tecnologías:
+- No requiere servidor
+- Usa localStorage para persistencia
+- Compatible con GitHub Pages
+
+Personalización futura posible
+- Agregar sonidos personalizados por categoría
+- Sistema de puntaje por equipos
+- Animaciones de victoria
+- Exportar partida como PDF
+- Agregar palabras desde el modal de historial
