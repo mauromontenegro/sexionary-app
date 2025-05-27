@@ -19,6 +19,7 @@ let preTimer;
 let timeLeft = 60;
 let palabraActual = "";
 let categoriaActual = "";
+let colorActual = "";
 
 const categoryColors = {
   verde: "#4CAF50",
@@ -122,7 +123,7 @@ function showRandomCards() {
     if (remaining.length === 0) continue;
     const random = remaining[Math.floor(Math.random() * remaining.length)];
     const btn = document.createElement("button");
-    btn.innerHTML = `<div style="margin-bottom: 8px;"><small style="display:block; margin-bottom: 6px; color: gray; font-size: 0.85em;">${categoryNames[color]}</small><span style="color:${categoryColors[color]}; font-size: 1.2em;">●</span> ${random}</div>`;
+    btn.innerHTML = `<div style="margin-bottom: 8px; padding: 8px;"><small style="display:block; font-weight: bold; margin-bottom: 10px; color:${categoryColors[color]};">${categoryNames[color]}</small>${random}</div>`;
     btn.onclick = () => selectCard(color, random);
     cardOptions.appendChild(btn);
   }
@@ -134,6 +135,7 @@ function showRandomCards() {
 function selectCard(color, word) {
   palabraActual = word;
   categoriaActual = categoryNames[color];
+  colorActual = color;
   usedCards.unshift({ word, color });
   localStorage.setItem("sexionary_usedCards", JSON.stringify(usedCards));
 
@@ -142,16 +144,16 @@ function selectCard(color, word) {
   const cantidadPalabras = word.trim().split(/\s+/).length;
 
   selectedCard.innerHTML = `
-    <div style="margin-bottom: 12px;">
+    <div class="card" style="margin-bottom: 12px;">
       <div style="color: ${colorHex}; font-weight: bold; margin-bottom: 10px;">
         ${categoria}
       </div>
-      <div id="palabraSecreta" style="font-size: 1.8em; margin-bottom: 10px;">
+      <div id="palabraSecreta" style="margin-bottom: 10px;">
         ${word}
       </div>
-      <div style="color: gray; font-size: 0.9em;">
+      <small style="font-size: 0.9em;">
         ${cantidadPalabras} palabra${cantidadPalabras > 1 ? 's' : ''}
-      </div>
+      </small>
     </div>
   `;
 
@@ -227,15 +229,20 @@ function endTurn() {
   clearInterval(timer);
   timerSection.classList.add("hidden");
   turnEnd.classList.remove("hidden");
+  const colorHex = categoryColors[colorActual];
   turnEnd.innerHTML = `
   <div style="margin-top: 20px;">
     <p style="font-size: 1.4em; color: var(--color-accent);">¡Turno finalizado!</p>
-    <div style="margin-top: 10px;">
-      <small style="color: gray;">${categoriaActual}</small><br>
-      <strong style="font-size: 1.2em;">${palabraActual}</strong>
+    <div class="card" style="margin-bottom: 12px;">
+      <div style="font-weight: bold; margin-bottom: 10px; color:${colorHex}">${categoriaActual}</div>
+      <div><strong style="margin-bottom: 10px;">${palabraActual}</strong></div>
     </div>
   </div>
 `;
+
+  selectedCard.innerHTML = `
+    
+  `;
 
   resetBtn.classList.add("hidden");
   continueBtn.classList.remove("hidden");
@@ -300,13 +307,9 @@ historyBtn.addEventListener("click", () => {
     historyList.innerHTML = "<p>No hay palabras jugadas aún.</p>";
   } else {
     usedCards.forEach(({ word, color }) => {
-      const div = document.createElement("button");
-      div.innerHTML = `
-        <div>
-          <small style="display:block; margin-bottom: 6px; color: gray; font-size: 0.85em;">${categoryNames[color]}</small>
-          <span style="color:${categoryColors[color]}; font-size: 1.2em;">●</span> ${word}
-        </div>
-      `;
+      const div = document.createElement("div");
+      div.classList.add('card');
+      div.innerHTML = `<small style="display:block; display:block; font-weight: bold; margin-bottom: 10px; color:${categoryColors[color]};">${categoryNames[color]}</small>${word}`;
       historyList.appendChild(div);
     });
   }
